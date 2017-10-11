@@ -1,8 +1,6 @@
 import re
 import pandas as pd
-
 from yahoo_finance import Share
-from decimal import Decimal
 
 
 def get_position_metrics(df):
@@ -56,6 +54,9 @@ def get_position_metrics(df):
     df["Total Gain/Loss"] = df["Market Value"] - df["Cost basis"]
     df["Overall Return"] = (100. * df["Total Gain/Loss"] / df["Cost basis"]).round(2)
     df["Change"] = df["Change"].round(2)
+    df["Market Value"] = df["Market Value"].round(2)
+    df["Total Gain/Loss"] = df["Total Gain/Loss"].round(2)
+    df["Day's Gain/Loss"] = df["Day's Gain/Loss"].round(2)
 
     # final column ordering
     cols = ["Name", "Symbol", "Current Price", "Change", "Shares", "Cost basis",

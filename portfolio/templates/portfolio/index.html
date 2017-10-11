@@ -18,6 +18,23 @@
 
     <script>
 
+        // Handling totals row for sorting purposes
+        $(document).ready(function() {
+
+            // Find totals row
+            var totalsRow = $(".dataframe td").filter(function() {
+                return $(this).text() == "Totals";
+            }).closest("tr");
+
+            // Detach totals row and create tfoot element from it
+            var totalsRow = totalsRow.detach();
+            var totalsHtml = "<tfoot>" + totalsRow.html() + "</tfoot>";
+
+            // Append tfoot to tbody
+            $(".dataframe tbody").after(totalsHtml);
+
+        });
+
         function abbreviateNumber(value) {
             var newValue = value;
             if (value >= 1000) {
