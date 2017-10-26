@@ -9,9 +9,9 @@
     <style>
 
 
-        .table {
+        .dataframe {
             margin: 25px 40px 70px 60px;
-            width: 90%;
+            width: 90%
         }
 
         #dropdown_accounts {
@@ -36,8 +36,10 @@
 
     <script>
 
-        // Handling totals row for sorting purposes
         $(document).ready(function() {
+
+
+            // Handling totals row for sorting purposes:
 
             // Find totals row
             var totalsRow = $(".dataframe td").filter(function() {
@@ -53,22 +55,38 @@
 
         });
 
-        function abbreviateNumber(value) {
-            var newValue = value;
-            if (value >= 1000) {
-                var suffixes = ["", "k", "m", "b","t"];
-                var suffixNum = Math.floor( (""+value).length/3 );
-                var shortValue = '';
-                for (var precision = 2; precision >= 1; precision--) {
-                    shortValue = parseFloat( (suffixNum != 0 ? (value / Math.pow(1000,suffixNum) ) : value).toPrecision(precision));
-                    var dotLessShortValue = (shortValue + '').replace(/[^a-zA-Z 0-9]+/g,'');
-                    if (dotLessShortValue.length <= 2) { break; }
+    </script>
+
+    <script>
+
+        // filter rows by account
+
+        $('#dropdown_accounts').change(function() {
+            var filter_accounts = Array();
+
+            $('#dropdown_accounts').children('option').filter(':selected').each(
+                function(i) {
+                  filter_accounts.push($(this).text());
+            })
+
+            console.log(filter_accounts);
+
+            $('.dataframe tbody tr').each(function(){
+                var row = $(this);
+                var account = row.children('td').last().text();
+
+                // reset all to display
+                row.css("display", "table-row");
+
+                // hide the filtered accounts
+                if( $.inArray(account, filter_accounts) == -1 ){
+                    row.css("display", "none");
                 }
-                if (shortValue % 1 != 0)  shortNum = shortValue.toFixed(1);
-                newValue = shortValue+suffixes[suffixNum];
-            }
-            return newValue;
-        }
+            })
+
+        });
+
+
     </script>
 
 {% endblock %}
