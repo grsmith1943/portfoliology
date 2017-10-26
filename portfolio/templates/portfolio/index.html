@@ -8,9 +8,16 @@
 
     <style>
 
+
         .table {
-            margin: 30px 40px 30px 40px;
+            margin: 25px 40px 70px 60px;
             width: 90%;
+        }
+
+        #dropdown_accounts {
+            margin: 0 0 0 60px;
+            width: 20%;
+            height: 120px
         }
 
     </style>
@@ -18,6 +25,12 @@
 {% endblock %}
 
 {% block content %}
+
+    <select multiple="multiple" name="accounts[]" id="dropdown_accounts" class="form-control">
+        {% for acct in accounts %}
+            <option value="{{ acct }}" class="form-control">{{ acct }}</option>
+        {% endfor %}
+    </select>
 
     {{ positions|safe }}
 
