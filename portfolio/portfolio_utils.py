@@ -46,6 +46,7 @@ def get_position_metrics(df):
         "Change": df["Change"].sum(),
         "Market Value": df["Market Value"].sum(),
         "Day's Gain/Loss": df["Day's Gain/Loss"].sum(),
+        "Account": ""
     }, index=[0])
 
     df = df.append(totals_df, ignore_index=True)
@@ -60,6 +61,6 @@ def get_position_metrics(df):
 
     # final column ordering
     cols = ["Name", "Symbol", "Current Price", "Change", "Shares", "Cost basis",
-            "Market Value", "Total Gain/Loss", "Day's Gain/Loss", "Overall Return"]
+            "Market Value", "Total Gain/Loss", "Day's Gain/Loss", "Overall Return", "Account"]
 
     return df[cols]
