@@ -8,15 +8,41 @@
 
     <style>
 
+        #accounts-header {
+            margin: 0 15px 0 15px;
+            font-family: Arial,sans-serif;
+            color: #dd4b39;
+            font-size: 1em;
+        }
+
         #dropdown_accounts {
-            margin: 0 0 0 175px;
-            width: 20%;
-            height: 120px
+            height: 120px;
+            margin: 10px 15px 0 15px;
+            width: 90%;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 12%;
+            position: fixed;
+            z-index: 1;
+            background-color: white;
+            top: 122px;
+            left: 0;
+            overflow-x: hidden;
+            padding-top: 60px;
+        }
+
+        #positions-header {
+            margin: 25px 0 0 13%;
+            font-family: Arial,sans-serif;
+            font-weight: bold;
+            font-size: 1.2em;
         }
 
         .dataframe {
-            margin: 25px 0 70px 175px;
-            width: 83%;
+            margin: 52px 0 70px 13%;
+            width: 80%;
         }
 
         .dataframe td {
@@ -25,6 +51,10 @@
             overflow: ellipsis;
             border-left: none;
             border-right: none;
+        }
+
+        .dataframe td:nth-child(1), .dataframe td:nth-child(2) {
+            color: #11C
         }
 
         .dataframe td:nth-child(n+3), .dataframe th:nth-child(n+3) {
@@ -36,8 +66,7 @@
         }
 
         .dataframe tfoot {
-            font-weight: bold;
-            background-color: #e6eef7;
+            color: black;
         }
 
     </style>
@@ -46,11 +75,19 @@
 
 {% block content %}
 
-    <select multiple="multiple" name="accounts[]" id="dropdown_accounts" class="form-control">
-        {% for acct in accounts %}
-            <option value="{{ acct }}" class="form-control">{{ acct }}</option>
-        {% endfor %}
-    </select>
+    <div id="sidenav" class="sidenav">
+
+        <p id="accounts-header">Select Accounts To Display</p>
+        <select multiple="multiple" name="accounts[]" id="dropdown_accounts" class="form-control">
+            {% for acct in accounts %}
+                <option value="{{ acct }}" class="form-control">{{ acct }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <p id="positions-header">Positions</p>
+
+    <hr>
 
     {{ positions|safe }}
 

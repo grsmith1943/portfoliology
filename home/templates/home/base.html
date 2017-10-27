@@ -37,13 +37,43 @@
 
     <style>
 
-        body {
-            background-color: snow;
+        .navbar-collapse .navbar-brand {
+            background-color: #f1f1f1
+        }
+
+        .dataframe {
+            font-family: Arial,sans-serif;
+            border: none
+        }
+
+        .dataframe th {
+            font-size: .8em;
+            white-space: nowrap;
+        }
+
+        .dataframe td {
+            font-size: .75em;
+            white-space: nowrap;
+            overflow: ellipsis;
+            border-left: none;
+            border-right: none;
         }
 
         .thead-inverse th {
-            color: #fff;
-            background-color: #373a3c;
+            color: black;
+            background-color: #f2f2f2;
+            border-left: none;
+            border-right: none;
+            border-bottom: none
+        }
+
+        .dataframe tfoot {
+            font-weight: bold;
+            background-color: #e6eef7;
+        }
+
+        .table>thead>tr>th {
+            border-bottom: none
         }
 
     </style>
@@ -59,7 +89,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Portfoliology</a>
+          <a style="color: #4285f4; font-family:sans-serif typeface" class="navbar-brand" href="/">Portfoliology</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -79,7 +109,7 @@
 
         // Make all tables that come from pandas sortable
         $(document).ready(function() {
-            $(".dataframe").addClass("table").addClass("table-striped").addClass("sortable");
+            $(".dataframe").addClass("table").addClass("sortable");
             $(".dataframe thead").addClass("thead-inverse");
         });
 
