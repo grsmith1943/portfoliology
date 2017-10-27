@@ -27,10 +27,9 @@
             position: fixed;
             z-index: 1;
             background-color: white;
-            top: 122px;
+            top: 160px;
             left: 0;
             overflow-x: hidden;
-            padding-top: 60px;
         }
 
         #positions-header {
@@ -41,7 +40,7 @@
         }
 
         #positions-table {
-            margin: 52px 0 70px 13%;
+            margin: 31px 0 70px 13%;
             width: 80%;
         }
 
@@ -119,7 +118,7 @@
 
             var colsToColor = [6, 7, 8, 10, 11];
 
-            $('#positions-table tbody tr').each(function(){
+            $('#positions-table tr:not(thead tr)').each(function(){
 
 
                 for (var i=0; i<colsToColor.length; i++) {
