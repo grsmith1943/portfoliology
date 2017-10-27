@@ -40,32 +40,33 @@
             font-size: 1.2em;
         }
 
-        .dataframe {
+        #positions-table {
             margin: 52px 0 70px 13%;
             width: 80%;
         }
 
-        .dataframe td {
+        #positions-table td {
             font-size: .75em;
             white-space: nowrap;
             overflow: ellipsis;
             border-left: none;
             border-right: none;
+            padding: 1px 8px
         }
 
-        .dataframe td:nth-child(1), .dataframe td:nth-child(2) {
+        #positions-table td:nth-child(1), #positions-table td:nth-child(2) {
             color: #11C
         }
 
-        .dataframe td:nth-child(n+3), .dataframe th:nth-child(n+3) {
+        #positions-table td:nth-child(n+3), #positions-table th:nth-child(n+3) {
             text-align: right;
         }
 
-        .dataframe td:last-child, .dataframe th:last-child {
-            text-align: left;
+        #positions-table td:last-child, #positions-table th:last-child {
+            display: none
         }
 
-        .dataframe tfoot {
+        #positions-table tfoot td:nth-child(1) {
             color: black;
         }
 
@@ -95,11 +96,14 @@
 
         $(document).ready(function() {
 
+            // add an ID to the main table for reference
+            $('.dataframe').attr("id", "positions-table");
+
 
             // Handling totals row for sorting purposes:
 
             // Find totals row
-            var totalsRow = $(".dataframe td").filter(function() {
+            var totalsRow = $("#positions-table td").filter(function() {
                 return $(this).text() == "Totals";
             }).closest("tr");
 
@@ -108,14 +112,14 @@
             var totalsHtml = "<tfoot>" + totalsRow.html() + "</tfoot>";
 
             // Append tfoot to tbody
-            $(".dataframe tbody").after(totalsHtml);
+            $("#positions-table tbody").after(totalsHtml);
 
 
             // Coloring numbers based on direction of change
 
             var colsToColor = [6, 7, 8, 10, 11];
 
-            $('.dataframe tbody tr').each(function(){
+            $('#positions-table tbody tr').each(function(){
 
 
                 for (var i=0; i<colsToColor.length; i++) {
@@ -150,7 +154,7 @@
 
             console.log(filter_accounts);
 
-            $('.dataframe tbody tr').each(function(){
+            $('#positions-table tbody tr').each(function(){
                 var row = $(this);
                 var account = row.children('td').last().text();
 
