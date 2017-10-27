@@ -1,7 +1,11 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from home import views
+
+
 urlpatterns = [
-    url(r'^portfolio/', include('portfolio.urls')),
+    url(r'^$', views.index, name='index'),
+    url(r'^positions/', include('positions.urls')),
     url(r'^admin/', admin.site.urls),
 ]

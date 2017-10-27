@@ -17,4 +17,4 @@ def index(request):
         "accounts": [acct for acct in positions_summary["Account"].unique() if acct]
     }
 
-    return render(request, "portfolio/index.html", context)
+    return render(request, "positions/index.html", context)
