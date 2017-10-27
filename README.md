@@ -7,10 +7,10 @@ Add a CSV named `positions.csv` with the columns "Name,Symbol,Shares,Cost basis"
 
 ### Requirements
 - Django==1.11.6
-- numpy==1.13.3\n
+- numpy==1.13.3
 - pandas==0.20.3
 - python-dateutil==2.6.1
 - pytz==2017.2
-- simplejson==3.11.1
+- simplejson==3.10.0
 - six==1.11.0
 - yahoo-finance==1.4.0

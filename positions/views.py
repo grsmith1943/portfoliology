@@ -13,7 +13,7 @@ def index(request):
     positions_summary = pu.get_position_metrics(positions_raw)
 
     context = {
-        "positions": positions_summary.to_html(index=False),
+        "positions": positions_summary.to_html(index=False, justify="right"),
         "accounts": [acct for acct in positions_summary["Account"].unique() if acct]
     }
 

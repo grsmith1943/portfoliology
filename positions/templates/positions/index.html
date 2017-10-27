@@ -8,16 +8,36 @@
 
     <style>
 
-
-        .dataframe {
-            margin: 25px 40px 70px 60px;
-            width: 90%
-        }
-
         #dropdown_accounts {
-            margin: 0 0 0 60px;
+            margin: 0 0 0 175px;
             width: 20%;
             height: 120px
+        }
+
+        .dataframe {
+            margin: 25px 0 70px 175px;
+            width: 83%;
+        }
+
+        .dataframe td {
+            font-size: .75em;
+            white-space: nowrap;
+            overflow: ellipsis;
+            border-left: none;
+            border-right: none;
+        }
+
+        .dataframe td:nth-child(n+3), .dataframe th:nth-child(n+3) {
+            text-align: right;
+        }
+
+        .dataframe td:last-child, .dataframe th:last-child {
+            text-align: left;
+        }
+
+        .dataframe tfoot {
+            font-weight: bold;
+            background-color: #e6eef7;
         }
 
     </style>
@@ -52,6 +72,28 @@
 
             // Append tfoot to tbody
             $(".dataframe tbody").after(totalsHtml);
+
+
+            // Coloring numbers based on direction of change
+
+            var colsToColor = [6, 7, 8, 10, 11];
+
+            $('.dataframe tbody tr').each(function(){
+
+
+                for (var i=0; i<colsToColor.length; i++) {
+                    var cell = $(":nth-child(" + colsToColor[i] + ")", this);
+
+                    if (cell.text() < 0) {
+                        cell.css("color", "#d14836");
+                    }
+
+                    else {
+                        cell.css("color", "#093");
+                    }
+
+                }
+            })
 
         });
 
