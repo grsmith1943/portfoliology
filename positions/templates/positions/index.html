@@ -9,39 +9,48 @@
     <style>
 
         #accounts-header {
-            margin: 0 15px 0 15px;
+            margin: 0 15px 0 28px;
             font-family: Arial,sans-serif;
             color: #dd4b39;
             font-size: 1em;
         }
 
         #dropdown_accounts {
-            height: 120px;
             margin: 10px 15px 0 15px;
             width: 90%;
+            vertical-align:top;
+            overflow:hidden;
+            border:none;
+            box-shadow: none
+        }
+
+        #dropdown_accounts option {
+            background-color: #e6eef7;
+            overflow: hidden;
+            font-weight: bold
         }
 
         .sidenav {
             height: 100%;
-            width: 12%;
-            position: fixed;
+            width: 220px;
+            position: absolute;
             z-index: 1;
             background-color: white;
-            top: 160px;
+            top: 180px;
             left: 0;
             overflow-x: hidden;
         }
 
         #positions-header {
-            margin: 25px 0 0 13%;
+            margin: 25px 0 0 230px;
             font-family: Arial,sans-serif;
             font-weight: bold;
             font-size: 1.2em;
         }
 
         #positions-table {
-            margin: 31px 0 70px 13%;
-            width: 80%;
+            margin: 25px 0 70px 230px;
+            width: 85%;
         }
 
         #positions-table td {
