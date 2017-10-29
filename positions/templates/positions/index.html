@@ -8,7 +8,9 @@
 
     <style>
 
-        #accounts-header {
+        /*Sidebar Stuff*/
+
+        #accounts-header, #cash-header {
             margin: 0 15px 0 28px;
             font-family: Arial,sans-serif;
             color: #dd4b39;
@@ -30,6 +32,14 @@
             font-weight: bold
         }
 
+        #cash-totals {
+            margin: 0 15px 0 28px;
+            font-family: Arial,sans-serif;
+            color: #093;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
         .sidenav {
             height: 100%;
             width: 220px;
@@ -40,6 +50,8 @@
             left: 0;
             overflow-x: hidden;
         }
+
+        /* Positions Table Stuff */
 
         #positions-header {
             margin: 25px 0 0 230px;
@@ -82,8 +94,10 @@
 
 {% endblock %}
 
+
 {% block content %}
 
+    <!--Sidebar-->
     <div id="sidenav" class="sidenav">
 
         <p id="accounts-header">Select Accounts To Display</p>
@@ -92,14 +106,25 @@
                 <option value="{{ acct }}" class="form-control">{{ acct }}</option>
             {% endfor %}
         </select>
+
+        <hr>
+
+        <p id="cash-header">Cash Balance</p>
+        <p id="cash-totals">${{ total_cash }}</p>
+
+        <hr>
+
     </div>
 
     <p id="positions-header">Positions</p>
 
     <hr>
 
+    <!--Positions Table-->
     {{ positions|safe }}
 
+
+    <!--JS-->
     <script>
 
         $(document).ready(function() {
@@ -155,14 +180,15 @@
         $('#dropdown_accounts').change(function() {
             var filter_accounts = Array();
 
+            // get list of selected accounts
             $('#dropdown_accounts').children('option').filter(':selected').each(
                 function(i) {
                   filter_accounts.push($(this).text());
             })
 
-            console.log(filter_accounts);
-
+            // hide rows for unselected accounts
             $('#positions-table tbody tr').each(function(){
+
                 var row = $(this);
                 var account = row.children('td').last().text();
 
@@ -175,6 +201,16 @@
                 }
             })
 
+            // update cash totals
+            var cashTotal = 0;
+
+            {% for acct, cash in cash_balances.items %}
+                if( $.inArray( "{{ acct }}" , filter_accounts ) != -1 ) {
+                    cashTotal += {{ cash }};
+                }
+            {% endfor %}
+
+            $('#cash-totals').text("$" + cashTotal.toFixed(2));
         });
 
 

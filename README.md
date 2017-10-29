@@ -1,9 +1,12 @@
 # Portfoliology
 
-Replacement for Google Finance portfolios, since apparently they're getting rid of that in November, and it was always kind of useful. 
+Track your investments in real time across all your accounts
 
 ### Usage
-Add a CSV named `positions.csv` with the columns "Name,Symbol,Shares,Cost Basis,Account" to `positions/static/positions/` and then run `python manage.py collectstatic`. Then you should be able to run it on localserver and visit any of the url routes mapped out in `urls.py`.
+Add new accounts and positions through Django admin
+
+### Apps
+- Positions: summary of tracked positions, filterable by account
 
 ### Requirements
 - Django==1.11.6

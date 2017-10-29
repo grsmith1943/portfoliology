@@ -1,20 +1,21 @@
-import os
-import pandas as pd
-
 from django.shortcuts import render
-from django.conf import settings
 
+from .models import Account, Position
 from . import portfolio_utils as pu
 
 
 def index(request):
     """Primary view of positions held"""
-    positions_raw = pd.read_csv(os.path.join(settings.STATIC_ROOT, 'positions/positions.csv'))
-    positions_summary = pu.get_position_metrics(positions_raw)
+
+    positions_summary = pu.get_position_summary(Position.objects.all())
+    accounts = Account.objects.all()
+    total_cash = sum((acct.cash_balance for acct in accounts))
 
     context = {
         "positions": positions_summary.to_html(index=False, justify="right"),
-        "accounts": [acct for acct in positions_summary["Account"].unique() if acct]
+        "accounts": [acct.name for acct in accounts],
+        "cash_balances": {acct: acct.cash_balance for acct in accounts},
+        "total_cash": "{:,.2f}".format(total_cash)
     }
 
     return render(request, "positions/index.html", context)
