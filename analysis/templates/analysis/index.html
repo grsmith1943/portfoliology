@@ -1,0 +1,73 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block title %}Analysis{% endblock %}
+
+
+{% block extra_head %}
+
+    <style>
+
+        .bk-root {
+            margin: 25px 0 70px 275px;
+        }
+
+        .bk-root:nth-of-type(3) {
+            margin-top: -615px;
+        }
+
+    </style>
+
+{% endblock %}
+
+
+{% block content %}
+
+    <!--Sidebar-->
+    <div id="sidenav" class="sidenav">
+
+        <p id="accounts-header">Select Accounts To Display</p>
+        <select multiple="multiple" name="accounts[]" id="dropdown_accounts" class="form-control">
+            {% for acct in accounts %}
+                <option value="{{ acct }}" class="form-control">{{ acct }}</option>
+            {% endfor %}
+        </select>
+
+        <hr>
+
+        <p id="cash-header">Cash Balance</p>
+        <p id="cash-totals">${{ total_cash }}</p>
+
+        <hr>
+
+    </div>
+
+    <p id="analysis-header" class="page-title">Analysis</p>
+
+    <hr>
+
+    {{ concentration_bar_chart|safe }}
+    {{ concentration_area_chart|safe }}
+
+    <script>
+
+        // Account Filtering
+
+        $('#dropdown_accounts').change(function() {
+            var filter_accounts = Array();
+
+            // get list of selected accounts
+            $('#dropdown_accounts').children('option').filter(':selected').each(
+                function(i) {
+                  filter_accounts.push($(this).text());
+            })
+
+            // TODO: DO STUFF HERE
+
+        })
+
+    </script>
+
+
+
+{% endblock %}

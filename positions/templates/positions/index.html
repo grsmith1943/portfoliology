@@ -8,69 +8,9 @@
 
     <style>
 
-        /*Sidebar Stuff*/
-
-        #accounts-header, #cash-header {
-            margin: 0 15px 0 28px;
-            font-family: Arial,sans-serif;
-            color: #dd4b39;
-            font-size: 1em;
-        }
-
-        #dropdown_accounts {
-            margin: 10px 15px 0 15px;
-            width: 90%;
-            vertical-align:top;
-            overflow:hidden;
-            border:none;
-            box-shadow: none
-        }
-
-        #dropdown_accounts option {
-            background-color: #e6eef7;
-            overflow: hidden;
-            font-weight: bold
-        }
-
-        #cash-totals {
-            margin: 0 15px 0 28px;
-            font-family: Arial,sans-serif;
-            color: #093;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-
-        .sidenav {
-            height: 100%;
-            width: 220px;
-            position: absolute;
-            z-index: 1;
-            background-color: white;
-            top: 180px;
-            left: 0;
-            overflow-x: hidden;
-        }
-
         /* Positions Table Stuff */
 
-        #positions-header {
-            margin: 25px 0 0 230px;
-            font-family: Arial,sans-serif;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-
-        #positions-table {
-            margin: 25px 0 70px 230px;
-            width: 85%;
-        }
-
         #positions-table td {
-            font-size: .75em;
-            white-space: nowrap;
-            overflow: ellipsis;
-            border-left: none;
-            border-right: none;
             padding: 1px 8px
         }
 
@@ -116,7 +56,7 @@
 
     </div>
 
-    <p id="positions-header">Positions</p>
+    <p id="positions-header" class="page-title">Positions</p>
 
     <hr>
 
@@ -126,6 +66,28 @@
 
     <!--JS-->
     <script>
+
+        // Coloring numbers based on direction of change
+
+        function colorCols() {
+            var colsToColor = [6, 7, 8, 10, 11];
+
+            $('#positions-table tr:not(thead tr)').each(function(){
+
+                for (var i=0; i<colsToColor.length; i++) {
+                    var cell = $(":nth-child(" + colsToColor[i] + ")", this);
+
+                    if (cell.text() < 0) {
+                        cell.css("color", "#d14836");
+                    }
+
+                    else {
+                        cell.css("color", "#093");
+                    }
+
+                }
+            })
+        }
 
         $(document).ready(function() {
 
@@ -147,35 +109,15 @@
             // Append tfoot to tbody
             $("#positions-table tbody").after(totalsHtml);
 
-
-            // Coloring numbers based on direction of change
-
-            var colsToColor = [6, 7, 8, 10, 11];
-
-            $('#positions-table tr:not(thead tr)').each(function(){
-
-
-                for (var i=0; i<colsToColor.length; i++) {
-                    var cell = $(":nth-child(" + colsToColor[i] + ")", this);
-
-                    if (cell.text() < 0) {
-                        cell.css("color", "#d14836");
-                    }
-
-                    else {
-                        cell.css("color", "#093");
-                    }
-
-                }
-            })
+            // color columns
+            colorCols();
 
         });
 
-    </script>
 
-    <script>
 
-        // filter rows by account
+        // Account Filtering
+
 
         $('#dropdown_accounts').change(function() {
             var filter_accounts = Array();
@@ -201,7 +143,40 @@
                 }
             })
 
-            // update cash totals
+            // function for summing columns
+            function sumCol(ix) {
+                colTotal = 0;
+
+                $("#positions-table tbody td:nth-child(" + ix + "):visible").each(function() {
+
+                    colTotal += parseFloat($(this).text());
+                })
+
+                return colTotal.toFixed(2);
+            }
+
+            // update total market value
+            var totalMarketValue = sumCol(4);
+            $("#positions-table tfoot td:nth-child(4)").text(totalMarketValue);
+
+            // update day's gain/loss ($)
+            var daysGain = sumCol(8);
+            $("#positions-table tfoot td:nth-child(8)").text(daysGain);
+
+            // update day's gain/loss (%)
+            $("#positions-table tfoot td:nth-child(7)").text( (100. * daysGain / totalMarketValue).toFixed(2) );
+
+            // update total cost basis
+            $("#positions-table tfoot td:nth-child(9)").text(sumCol(9));
+
+            // update total gain/loss ($)
+            var totalGain = sumCol(10);
+            $("#positions-table tfoot td:nth-child(10)").text(totalGain);
+
+            // update total gain/loss (%)
+            $("#positions-table tfoot td:nth-child(11)").text( (100. * totalGain / totalMarketValue).toFixed(2) );
+
+            // update total cash
             var cashTotal = 0;
 
             {% for acct, cash in cash_balances.items %}
@@ -211,6 +186,10 @@
             {% endfor %}
 
             $('#cash-totals').text("$" + cashTotal.toFixed(2));
+
+            // color cols
+            colorCols();
+
         });
 
 

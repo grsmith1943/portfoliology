@@ -12,7 +12,7 @@ def index(request):
     total_cash = sum((acct.cash_balance for acct in accounts))
 
     context = {
-        "positions": positions_summary.to_html(index=False, justify="right"),
+        "positions": positions_summary.to_html(index=False),
         "accounts": [acct.name for acct in accounts],
         "cash_balances": {acct: acct.cash_balance for acct in accounts},
         "total_cash": "{:,.2f}".format(total_cash)
