@@ -1,29 +1,26 @@
-import re
+import requests
 import pandas as pd
-from yahoo_finance import Share
 
 
 def get_realtime_ticker_data(positions, cols):
-    """Gets key metrics from Yahoo! Finance API for a list of Position objects"""
+    """Gets key metrics from IEX API for a list of Position objects"""
 
     df = pd.DataFrame(columns=cols)
 
-    # iterate through each position to populate with realtime (er, 15-minute delayed) data
+    # iterate through each position to populate with realtime price data
     for i, position in enumerate(positions):
 
-        # get ticker data from Y! Finance API
         ticker = position.symbol
-        ticker_data = Share(ticker)
 
-        # parse key metrics
-        price = ticker_data.get_price() or '0'
-        change = ticker_data.get_change() or '0'
-        pct_change = ticker_data.get_percent_change() or '0'
+        # make request
+        response = requests.get("https://api.iextrading.com/1.0//stock/{}/quote".format(ticker))
 
-        # string conversions, unit parsing, etc
-        price = float(re.sub(r'[A-Z]', '', price))
-        change = float(re.sub(r'[A-Z]', '', change))
-        pct_change = float(re.sub(r'[A-Z]', '', pct_change.replace("%", "")))
+        data = response.json()
+
+        # parse price data
+        price = data['latestPrice']
+        change = data['change']
+        pct_change = data['changePercent']
 
         # assign to relevant columns
         df.loc[i, "Name"] = position.name

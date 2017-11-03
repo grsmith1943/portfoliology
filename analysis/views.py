@@ -19,6 +19,7 @@ def index(request):
         "accounts": [acct.name for acct in accounts],
         "cash_balances": {acct: acct.cash_balance for acct in accounts},
         "total_cash": "{:,.2f}".format(total_cash),
+        "num_positions": positions_data.shape[0],
         "concentration_bar_chart": concentration_bar_chart,
         "concentration_area_chart": concentration_area_chart,
     }

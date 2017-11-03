@@ -26,7 +26,7 @@ def get_position_data(positions):
 
 def get_concentration_bar_chart(df):
     """Creates bar chart visualizing portfolio concentration by position"""
-    df = df[["Symbol", "Concentration"]].sort_values("Concentration")
+    df = df[["Symbol", "Concentration"]].sort_values("Concentration", ascending=False)
 
     chart = Bar(
         df,
@@ -55,14 +55,16 @@ def get_concentration_area_chart(df):
     )
 
     chart = Area(
-        df["Concentration"].astype(float),
-        title='Cumulative Portfolio Concentration By Position',
-        ylabel='Concentration (%)',
+        df['Concentration'].astype(float),
+        title='Cumulative Portfolio Concentration',
+        ylabel='% of Total Value',
         xlabel='Number of Positions',
         plot_width=1200,
         plot_height=400,
         legend=False,
         color='#4285f4'
     )
+
+    chart.x_range.start, chart.x_range.end = 0, df.shape[0]
 
     return file_html(chart, INLINE)

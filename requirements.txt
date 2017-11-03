@@ -1,0 +1,9 @@
+Django==1.11.6
+numpy==1.11.3
+pandas==0.20.3
+python-dateutil==2.6.1
+pytz==2017.2
+requests==2.12.4
+simplejson==3.10.0
+six==1.11.0
+yahoo-finance==1.4.0

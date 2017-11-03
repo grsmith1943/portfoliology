@@ -40,7 +40,7 @@
     <!--Sidebar-->
     <div id="sidenav" class="sidenav">
 
-        <p id="accounts-header">Select Accounts To Display</p>
+        <p id="accounts-header" class="sidebar-header">Select Accounts To Display</p>
         <select multiple="multiple" name="accounts[]" id="dropdown_accounts" class="form-control">
             {% for acct in accounts %}
                 <option value="{{ acct }}" class="form-control">{{ acct }}</option>
@@ -49,7 +49,7 @@
 
         <hr>
 
-        <p id="cash-header">Cash Balance</p>
+        <p id="cash-header" class="sidebar-header">Cash Balance</p>
         <p id="cash-totals">${{ total_cash }}</p>
 
         <hr>

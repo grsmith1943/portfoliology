@@ -93,7 +93,7 @@
 
         /*Sidebar Stuff*/
 
-        #accounts-header, #cash-header {
+        .sidebar-header {
             margin: 0 15px 0 28px;
             font-family: Arial,sans-serif;
             color: #dd4b39;
@@ -101,9 +101,8 @@
         }
 
         #dropdown_accounts {
-            margin: 10px 15px 0 15px;
+            margin: 5px 15px -25px 15px;
             width: 90%;
-            vertical-align:top;
             overflow:hidden;
             border:none;
             box-shadow: none
@@ -119,6 +118,13 @@
             margin: 0 15px 0 28px;
             font-family: Arial,sans-serif;
             color: #093;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        #position-count {
+            margin: 0 15px 0 28px;
+            font-family: Arial,sans-serif;
             font-weight: bold;
             font-size: 1.1em;
         }
@@ -162,6 +168,7 @@
 
     <div id="content">
         {% block content %}{% endblock %}
+        <p style="margin: -25px 0 0 230px">Data provided by <a href="https://iextrading.com">IEX</a></p>
     </div>
 
     <script>
@@ -173,6 +180,7 @@
         });
 
     </script>
+
 
 </body>
 </html>
