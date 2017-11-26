@@ -20,7 +20,7 @@ def get_realtime_ticker_data(positions, cols):
         # parse price data
         price = data['latestPrice']
         change = data['change']
-        pct_change = data['changePercent']
+        pct_change = 100. * data['changePercent']
 
         # assign to relevant columns
         df.loc[i, "Name"] = position.name
@@ -58,6 +58,7 @@ def format_positions_summary(df):
     df["Day's Change (%)"] = df["Day's Change (%)"].astype(float).round(2)
     df["Market Value ($)"] = df["Market Value ($)"].astype(float).round(2)
     df["Day's Gain/Loss ($)"] = df["Day's Gain/Loss ($)"].astype(float).round(2)
+    df["Cost Basis ($)"] = df["Cost Basis ($)"].astype(float).round(2)
 
     # sort by largest position and fill null values with empty string (b/c I like it that way)
     df.sort_values("Market Value ($)", inplace=True, ascending=False)
