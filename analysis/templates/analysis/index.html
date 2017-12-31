@@ -8,16 +8,16 @@
 
     <style>
 
-        .bk-root {
+        .bk-plot {
             margin: 25px 0 70px 230px;
-        }
-
-        .bk-root:nth-of-type(3) {
-            margin-top: -615px;
         }
 
         #sidenav {
             top: 155px;
+        }
+
+        #dropdown_accounts {
+            display: none;
         }
 
     </style>
@@ -30,17 +30,13 @@
     <!--Sidebar-->
     <div id="sidenav" class="sidenav">
 
-        <p id="accounts-header" class="sidebar-header">Select Accounts To Display</p>
-        <select multiple="multiple" name="accounts[]" id="dropdown_accounts" class="form-control">
-            {% for acct in accounts %}
-                <option value="{{ acct }}" class="form-control">{{ acct }}</option>
-            {% endfor %}
-        </select>
+        <p id="cash-header" class="sidebar-header">Cash Balance</p>
+        <p id="cash-totals">${{ total_cash }}</p>
 
         <hr>
 
-        <p id="cash-header" class="sidebar-header">Cash Balance</p>
-        <p id="cash-totals">${{ total_cash }}</p>
+        <p id="total-value-header" class="sidebar-header">Total Value</p>
+        <p id="total-value">${{ total_value }}</p>
 
         <hr>
 

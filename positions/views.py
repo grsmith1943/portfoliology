@@ -15,7 +15,9 @@ def index(request):
         "positions": positions_summary.to_html(index=False),
         "accounts": [acct.name for acct in accounts],
         "cash_balances": {acct: acct.cash_balance for acct in accounts},
-        "total_cash": "{:,.2f}".format(total_cash)
+        "total_cash": "{:,.2f}".format(total_cash),
+        "total_value": "{:,.2f}".format(total_cash + positions_summary["Market Value ($)"].iloc[0]),
+        "num_positions": positions_summary.shape[0] - 1,
     }
 
     return render(request, "positions/index.html", context)

@@ -54,6 +54,16 @@
 
         <hr>
 
+        <p id="total-value-header" class="sidebar-header">Total Value</p>
+        <p id="total-value">${{ total_value }}</p>
+
+        <hr>
+
+        <p id="position-count-header" class="sidebar-header">Number of Positions</p>
+        <p id="position-count">{{ num_positions }}</p>
+
+        <hr>
+
     </div>
 
     <p id="positions-header" class="page-title">Positions</p>
@@ -186,6 +196,10 @@
             {% endfor %}
 
             $('#cash-totals').text("$" + cashTotal.toFixed(2));
+
+            // update total value
+            var totalVal = Number(cashTotal) + Number(totalMarketValue);
+            $('#total-value').text("$" + totalVal.toFixed(2));
 
             // color cols
             colorCols();
